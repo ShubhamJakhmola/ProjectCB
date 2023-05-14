@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}prodetail{% endblock title %}
+
+
+{% block body %}
+
+
+<h1 style="text-align:center";>Search Results</h1>
+{% if products %}
+
+{% for product in products %}
+
+<div class="col-md-3 mt-3 " style="margin-left=20px";>
+  <img src="/media/{{product.image}}" class="card-img-top" alt="not found" height="200px" width="150px " />
+  <div class="card-body">
+    <h5 class="card-title mt-2" id="namepr{{product.id}}">{{product.product_name}}</h5>
+    <p class="card-text">{{product.desc|slice:"0:53"}}...</p>
+    <h6 class="card-title mb-3">
+      Price:<span id="pricepr{{product.id}}">{{product.price}}</span>
+    </h6>
+    <span id="divpr{{product.id}}" class="divpr">
+      <button id="pr{{product.id}}" class="btn btn-danger cart btn-sm mt-0">
+        AddToCart <i class="fa-solid fa-cart-shopping"></i>
+      </button>
+    </span>
+
+    <a href="/media/{{product.image}}">
+      <button class="btn btn-dark btn-sm cart"><i class=" fa-solid fa-eye"></i></button>
+      
+    </a>
+  </div>
+</div>
+
+{% endfor %}
+{% else %}
+<br><br><br><br>
+<strong><p style="text-align:center;color:red;">SORRY!!<br>NO product found.</p></strong>
+<br><br><br><br>
+{% endif %}
+
+
+
+
+ {% endblock %}
