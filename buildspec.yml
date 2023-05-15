@@ -13,6 +13,7 @@ phases:
       - echo Prebuild ops 
       - pip3 install -r requirement.txt 
       - pip3 install config
+      - pip3 install config.settings
   build: 
     commands: 
       - echo Building the application 
