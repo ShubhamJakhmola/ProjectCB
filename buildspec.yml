@@ -12,7 +12,9 @@ phases:
     commands: 
       - echo Prebuild ops 
       - pip3 install -r requirement.txt 
+      - pip3 install sqlparse
       - pip3 install config
+      
      
   build: 
     commands: 
