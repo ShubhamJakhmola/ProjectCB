@@ -2,12 +2,13 @@
 # Test a Django project on multiple versions of Python.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
 trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: MY_Azure_local pool
+  demands:
+  - agent.name -equals SHUBHAM
 strategy:
   matrix:
     Python38:
@@ -16,7 +17,7 @@ strategy:
       PYTHON_VERSION: '3.9'
     Python310:
       PYTHON_VERSION: '3.10'
-  maxParallel: 3
+  maxParallel: 1   # 👈 Keep 1 since your machine is single-agent (not cloud scale)
 
 steps:
 - task: UsePythonVersion@0
