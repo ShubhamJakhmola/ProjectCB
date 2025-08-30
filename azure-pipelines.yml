@@ -6,34 +6,34 @@ trigger:
 - main
 
 pool:
-  name: MY_Azure_local pool
+  name: MY_Azure_local pool   
   demands:
   - agent.name -equals SHUBHAM
+  
 strategy:
   matrix:
-    Python38:
-      PYTHON_VERSION: '3.8'
-    Python39:
-      PYTHON_VERSION: '3.9'
-    Python310:
-      PYTHON_VERSION: '3.10'
-  maxParallel: 1   # 👈 Keep 1 since your machine is single-agent (not cloud scale)
+    PythonLocal:
+      PYTHON_VERSION: '3.13'
+  maxParallel: 1   # since only 1 agent (your machine)
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(PYTHON_VERSION)'
-    architecture: 'x64'
+# Just check Python version (your local one will be used)
+- script: |
+    python --version
+  displayName: 'Check Python version'
 
+# Install dependencies
 - script: |
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install prerequisites'
 
+# Run Django tests
 - script: |
     python manage.py test
   displayName: 'Run tests'
 
+# Publish test results (optional)
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: '**/TEST-*.xml'
